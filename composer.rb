@@ -52,22 +52,15 @@ remove_file 'app/assets/stylesheets/application.css'
 get_remote('application.scss', 'app/assets/stylesheets/application.scss')
 inject_into_file 'app/assets/javascripts/application.js', after: "//= require jquery\n" do "//= require bootstrap-sprockets\n" end
 
-say 'Applying simple_form...'
-gem 'simple_form'
-after_bundle do
-  generate 'simple_form:install', '--bootstrap'
-end
 
-say 'Applying font-awesome & slim & high_voltage...'
+
+say 'Applying font-awesome  & high_voltage...'
 gem 'font-awesome-sass'
-gem 'slim-rails'
-gem 'high_voltage', :github=>"thoughtbot/high_voltage"
+ gem 'high_voltage', :github=>"thoughtbot/high_voltage"
 get_remote('visitors_controller.rb', 'app/controllers/visitors_controller.rb')
-get_remote('index.html.slim', 'app/views/visitors/index.html.slim')
-get_remote('about.html.slim', 'app/views/pages/about.html.slim')
-remove_file('app/views/layouts/application.html.erb')
-get_remote('application.html.slim', 'app/views/layouts/application.html.slim')
-gsub_file 'app/views/layouts/application.html.slim', /myapp/, "#{app_name}"
+get_remote('index.html.erb', 'app/views/visitors/index.html.erb')
+get_remote('about.html.erb', 'app/views/pages/about.html.erb')
+
 
 say 'Applying action cable config...'
 inject_into_file 'config/environments/production.rb', after: "# Mount Action Cable outside main process or domain\n" do <<-EOF
